@@ -20,6 +20,7 @@ def post(request,pk):
         extensions=[
             "markdown.extensions.extra",
             "markdown.extensions.codehilite",
+            "markdown.extensions.sane_lists",
             # 记得在顶部引入 TocExtension 和 slugify
             TocExtension(slugify=slugify),
         ]

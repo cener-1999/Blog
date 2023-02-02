@@ -1,103 +1,173 @@
-<h2 id="编程珠玑"><strong>编程珠玑</strong></h2>
-<p>~写零碎的编程技巧，和风格建议~
-1. 在markdown居中</p>
-<pre class="codehilite"><code class="language-markdown">&lt;div align='right'&gt;右居中&lt;/div&gt;
-&lt;div align='left'&gt;左居中&lt;/div&gt;
-&lt;center&gt;居中&lt;/center&gt;
-</code></pre>
-
+<p>[[部署]]
+[[服务器]]
+[[阿里云]]</p>
+<h1 id="intr">Intr</h1>
+<p><strong>FTP</strong>:  Flie Transfer Protocol</p>
+<p><strong>Benefit:</strong>
+-  Faster than HTTP
+-  Built in Mac</p>
+<h1 id="todo-在阿里云上部署">TODO 在阿里云上部署</h1>
+<h1 id="q-为什么在macos等类linux-上的sshftp如此build-in而win需要第三方软件ssh它们只是一种协议吗">Q : 为什么在macOS等类linux 上的ssh,ftp如此build-in，而Win需要第三方软件，SSH它们只是一种协议吗？</h1>
+<h1 id="在云服务器上部署ftp">在云服务器上部署FTP</h1>
+<p>[[FTP]]</p>
+<p><a href="https://help.aliyun.com/document_detail/60152.html?spm=5176.10173289.help.dexternal.c5e02e77uGJVja&amp;scm=20140722.S_help%40%40文档%40%4060152.S_hot%2Bos0.ID_60152-RL_FTP-LOC_consoleUNDhelp-OR_ser-V_2-P0_0">官方教程</a></p>
+<h2 id="整体逻辑">整体逻辑</h2>
 <ol>
-<li></li>
+<li>开启ftp服务</li>
+<li>在服务器创建一个 用于 <code>ftp</code> 的user，并给它准备一个own是它的文件夹(方便管理读写权限)</li>
+<li>在配置文件中使用本地用户模式 #Q 那这种ftp的认证是否类似于远程登录</li>
+<li>修改一系列的配置文件</li>
 </ol>
-<h2 id="几句话"><strong>几句话</strong></h2>
-<ol>
-<li>你们中有些人可能不太情愿低头看脚下的路。那是完美主义在背后作祟，你对任何低于理想的事情都看不上眼。虽然选择一个最小目标对你的骄傲是一种打击，但是从小事情着手最终会让你尝到甜头。你可以通过一小步一小步地实现你的目标而最终成就自己，而不是相反：空有空中楼阁，而没有实际行为。</li>
-</ol>
-<div align='right'>——《拖延心理学》</div>
-
-<ol>
-<li>不降其志，不辱其身，不追求时髦，不躲避危险。</li>
-</ol>
-<div align='right'>——江平 （法大前校长）</div>
-
-<ol>
-<li>不要让从众心理夺走你的独立性，使自己丧失独自思考，决断的自由。总的来说，要维持个体的主权独立。不论是好是坏，你都要成为自己职业与命运的主宰。</li>
-</ol>
-<div align='right'>——《如何在大学中学习》</div>
-
-<ol>
-<li>努力探索你自己的心灵吧，因为生活源自于此。</li>
-</ol>
-<div align='right'>——《高效能人士的七个习惯》</div>
-
-<ol>
-<li>生理上独立的人可以自食其力；智力上独立的人可以有自己的思想，兼具想象，思考，创造，分析，组织与表达的能力；情感上独立的人信心十足，能自我管理，不因他人好恶而影响自我价值的评价。</li>
-</ol>
-<div align='right'>——《高效能人士的七个习惯》</div>
-
-<ol>
-<li>上帝，请赐我宁静，去接受我不能改变的一切；请赐我勇气，去改变我所能改变的一切；并请赐我智慧去分辨这两者之间的区别。</li>
-</ol>
-<div align='right'>——莱因霍尔德.尼布尔</div>
-
-<ol>
-<li></li>
-</ol>
-<h2 id="思考与讨论"><strong>思考与讨论</strong></h2>
-<p>~原创的，无关政治的，理性而非情绪化的文字~</p>
-<ol>
-<li>知识的获取，存储，和使用</li>
-</ol>
-<p>图书馆： 所见； 教程：路线图</p>
-<p>推荐算法：深化或者闭塞</p>
-<p>人，讲座，期刊：零碎的发现</p>
-<ol>
+<h2 id="软件与配置文件">软件与配置文件</h2>
+<h3 id="服务相关">服务相关</h3>
+<ul>
 <li>
-<p>我的赛博人生 与 未来发展</p>
+<p>设置FTP服务开机自启动 <code>systemctl enable vsftpd.service</code></p>
 </li>
 <li>
-<p>996是最轻松的事</p>
+<p>启动FTP服务 <code>systemctl start vsftpd.service</code></p>
 </li>
-</ol>
-<h2 id="摄影"><strong>摄影</strong></h2>
-<p>~图片记录生活~</p>
-<h2 id="读与思">读与思</h2>
-<h3 id="计划与执行计划">计划与执行计划</h3>
-<p>摘抄：</p>
-<p><strong>目标的制定</strong>
-1. 目标的设定是一个创造矛盾的过程。它暗示了你对当前状态的不满，以及对实现某个目标或取得某个结果的期待。
-2. 你必须清晰的知道你的起点在哪里，没有思考你的起点在哪里，你可能就会失去动力，甚至不会迈出旅途的第一步。
-3. 设置难以实现的目标常常是灾难的开始，还不如不设立。
-4. 障碍越是清晰，你越知道该如何克服它们。
-5. 清晰的目标必须包含：
-    1. 可以测量的内容
-    2. 时间的限制</p>
-<p><strong>目标的实现</strong>
-1. 我们用于决策和控制冲动等活动的资源有限。
-2. 为了坚持长期目标，光靠意志力注定失败，它会让大脑超负荷，让长期计划成为牺牲品。
-3. 解决的方案是：让计划自己运行，把计划转换为习惯。
-4. 习惯由线索激活。不断的重复能够引发习惯的过程。“如果......，那么......”。时间和地点就是执行的标志。
-5. 把计划从大脑中取出，记录在触手可及的地方。
-6. 保持执行的动力：设定子目标，监控进展，庆祝每一次成功。缩短目标之间的距离，增加获得回报的频率。</p>
-<h2 id="专栏"><strong>专栏</strong></h2>
-<p>~聚焦于一个学习项目总结之后的产出~</p>
-<h2 id="趣闻"><strong>趣闻</strong></h2>
-<p>~有趣的新学到的知识~</p>
-<h2 id="文章分享"><strong>文章分享</strong></h2>
-<p>贴值得阅读的文章</p>
-<ol>
 <li>
-<p><strong>迅速摆脱低迷的状态</strong>
- <a href="https://www.bilibili.com/video/BV1sL4y1t7HK/?spm_id_from=333.337.search-card.all.click&amp;vd_source=4a60260c8b5f0d4e561bdb76107d64fc">出处</a></p>
-<ol>
-<li>每天在同一时间醒来；</li>
-<li>走到大自然；</li>
-<li>每天早上吃顿好的早餐；</li>
-<li>做一些运动；</li>
-<li>进行一些社交；</li>
-</ol>
+<p>查看FTP服务端口号 <code>netstat -antup | grep ftp</code></p>
 </li>
-<li></li>
+<li>
+<p>关闭防火墙 <code>systemctl stop firewalld</code></p>
+</li>
+</ul>
+<h3 id="配置文件">配置文件</h3>
+<ul>
+<li>vsftp.conf 在 <code>etc/vsftpd.conf</code></li>
+</ul>
+<h4 id="权限配置">权限配置</h4>
+<ul>
+<li>在<code>vim /etc/vsftpd/chroot_list</code>中加入的用户可以访问其他目录</li>
+</ul>
+<h4 id="配置文件参数说明">配置文件参数说明</h4>
+<p>/etc/vsftpd目录下文件说明如下：</p>
+<ul>
+<li>/etc/vsftpd/vsftpd.conf是vsftpd的核心配置文件。</li>
+<li>/etc/vsftpd/ftpusers是黑名单文件，此文件中的用户不允许访问FTP服务器。</li>
+<li>/etc/vsftpd/user_list是白名单文件，此文件中的用户允许访问FTP服务器。</li>
+</ul>
+<p>配置文件vsftpd.conf参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>anonymous_enable=YES</td>
+<td>接受匿名用户</td>
+</tr>
+<tr>
+<td>no_anon_password=YES</td>
+<td>匿名用户login时不询问口令</td>
+</tr>
+<tr>
+<td>anon_root=（none)</td>
+<td>匿名用户主目录</td>
+</tr>
+<tr>
+<td>local_enable=YES</td>
+<td>接受本地用户</td>
+</tr>
+<tr>
+<td>local_root=（none）</td>
+<td>本地用户主目录</td>
+</tr>
+<tr>
+<td>用户权限控制参数说明如下表所示</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>write_enable=YES</td>
+<td>可以上传文件（全局控制）</td>
+</tr>
+<tr>
+<td>local_umask=022</td>
+<td>本地用户上传的文件权限</td>
+</tr>
+<tr>
+<td>file_open_mode=0666</td>
+<td>上传文件的权限配合umask使用</td>
+</tr>
+<tr>
+<td>anon_upload_enable=NO</td>
+<td>匿名用户可以上传文件</td>
+</tr>
+<tr>
+<td>anon_mkdir_write_enable=NO</td>
+<td>匿名用户可以建目录</td>
+</tr>
+<tr>
+<td>anon_other_write_enable=NO</td>
+<td>匿名用户修改删除</td>
+</tr>
+<tr>
+<td>chown_username=lightwiter</td>
+<td>匿名上传文件所属用户名</td>
+</tr>
+</tbody>
+</table>
+<h2 id="在阿里云网站上配置防火墙">在阿里云网站上配置防火墙</h2>
+<p><img alt="" src="https://mypicsformarkdown.oss-cn-shanghai.aliyuncs.com/imgs/202211250054258.png" /></p>
+<h1 id="how-to-use-ftp-on-macos">How to use FTP on macOS</h1>
+<h2 id="ui">UI</h2>
+<p>在<em>访答</em> 中：</p>
+<p><img alt="" src="https://mypicsformarkdown.oss-cn-shanghai.aliyuncs.com/imgs/202211220152277.png" /></p>
+<p><img alt="" src="https://mypicsformarkdown.oss-cn-shanghai.aliyuncs.com/imgs/202211220153878.png" /></p>
+<h2 id="terminal">Terminal</h2>
+<p><code>ftp:// ip-address</code></p>
+<p><strong>Commands</strong></p>
+<ul>
+<li><code>get</code>: will download a single file. Type “get” followed by the name of the file you want to download from the server</li>
+<li><code>put</code>: will upload a single file. Type “put” followed by the name of the file you want to upload to the server.</li>
+<li><code>quit</code>: will quit your connection to the FTP server.</li>
+</ul>
+<h2 id="third-party-filezila">Third-party: FileZila</h2>
+<ol>
+<li>打开FileZilla客户端。</li>
+<li>在顶部菜单栏，选择文件 &gt; 站点管理器。</li>
+<li>在站点管理器对话框的左下角，单击新站点。</li>
+<li>
+<p>输入新站点的名称，并完成站点配置。
+        <img alt="" src="https://mypicsformarkdown.oss-cn-shanghai.aliyuncs.com/imgs/202211250104974.png" /></p>
+<p>具体的配置项说明如下：</p>
+<ul>
+<li>新站点名称：您自定义的站点名称。例如<code>test-01</code>。</li>
+<li>协议：FTP-文件传输协议。</li>
+<li>主机：FTP服务器公网IP地址。本文中为Linux实例的公网IP地址，例如<code>121.43.XX.XX</code>。</li>
+<li>端口：21。</li>
+<li>登录类型：匿名。</li>
+</ul>
+</li>
+<li>
+<p>单击连接。
+    <img alt="" src="https://mypicsformarkdown.oss-cn-shanghai.aliyuncs.com/imgs/202211250105041.png" /></p>
+</li>
 </ol>
-<h2 id="已阅"><strong>已阅</strong></h2>
-<p>看的书，听的课的小记</p>
+<p>连接成功后，您可以对文件进行上传、下载和删除等操作。FileZilla工具界面如下图所示</p>
+<p>①显示命令、FTP连接状态和任务执行结果。</p>
+<p>②本地区域，显示本地主机的目录信息。</p>
+<p>③远程区域，显示FTP服务器的目录信息。匿名模式下，默认目录为/pub。</p>
+<p>④记录区域，可查看FTP任务的队列信息和日志信息。</p>
+<h1 id="secure">Secure</h1>
+<p>FTP was not designed to be secure.</p>
+<ul>
+<li>clear-text</li>
+<li>lack of encryption</li>
+</ul>
+<p>can use TLS, SFTP, SSL for secure</p>
