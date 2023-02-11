@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.urls import reverse
 
 
 class Tag(models.Model):
@@ -31,5 +32,9 @@ class Post(models.Model):
             self.excerpt = self.body[:54]
 
         super().save(*args,**kwargs)
+
+    def get_absolute_url(self):
+        return reverse("blog:post",kwargs={"pk":self.pk})
+
 
 

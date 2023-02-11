@@ -2,20 +2,20 @@
 
 {% block main %}
 {% for post in post_list %}
-    <article class="post post-1">
+    <article class="post post">
         <header class="entry-header">
             <h1 class="entry-title">
                 <a href="{% url 'blog:post' pk=post.id %}">{{ post.title }}</a>
             </h1>
             <div class="entry-meta">
                 <span class="post-category"><a href="{% url 'blog:classify' type=post.category %}">{{ post.category }}</a></span>
-                <span class="post-date"><a href="#"><time class="entry-date"
-                                                          datetime="2012-11-09T23:15:57+00:00">{{ post.created_time }}</time></a></span>
+                <span class="post-date"><a href="#"><time class="entry-date">{{ post.created_time }}</time></a></span>
                 <span class="post-author"><a href="{% url 'blog:author' name=post.author %}">{{ post.author }}</a></span>
-<!--                                <span class="comments-link"><a href="#">4 评论</a></span>-->
-<!--                                <span class="views-count"><a href="#">588 阅读</a></span>-->
+<!--            <span class="comments-link"><a href="#">4 评论</a></span>-->
+<!--            <span class="views-count"><a href="#">588 阅读</a></span>-->
             </div>
         </header>
+
         <div class="entry-content clearfix">
             <p>{{ post.excerpt }}</p>
             <div class="read-more cl-effect-14">
@@ -23,5 +23,6 @@
             </div>
         </div>
     </article>
+
 {% endfor %}
 {% endblock main %}

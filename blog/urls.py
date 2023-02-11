@@ -9,4 +9,5 @@ urlpatterns = [
     path('classify/<str:type>', views.classify, name='classify'),
     path('tag/<str:tag>', views.tags, name='tag'),
     path('author/<str:name>', views.author, name='author'),
+    path('archives/<int:year>/<int:month>', views.archive, name='archives'),
 ]

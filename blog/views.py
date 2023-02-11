@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import *
 import markdown
+import re
 from markdown.extensions.toc import TocExtension
 from django.utils.text import slugify
 from django.http import JsonResponse
@@ -14,20 +15,19 @@ def post(request,pk):
         # TODO: msg box
         return JsonResponse({'success': False, 'msg': "can not find it"})
 
-    # test
-    print()
     md = markdown.Markdown(
         extensions=[
             "markdown.extensions.extra",
             "markdown.extensions.codehilite",
+            "markdown.extensions.toc",
             "markdown.extensions.sane_lists",
             # 记得在顶部引入 TocExtension 和 slugify
             TocExtension(slugify=slugify),
         ]
     )
     post.body = md.convert(post.body)
-    f = open('text.md',encoding='utf-8',mode='w')
-    f.write(post.body)
+    m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
+    post.toc = m.group(1) if m is not None else ''
     return render(request,"blog/post.html",{'post':post})
 
 
@@ -52,3 +52,6 @@ def index(request):
     post_list = Post.objects.all().order_by('-created_time')
     return render(request,'blog/index.html',{'post_list':post_list})
 
+def archive(request,year,month):
+    post_list = Post.objects.filter(created_time__year=year,created_time__month=month,).order_by('-created_time')
+    return render(request,'blog/index.html',{'post_list':post_list})
