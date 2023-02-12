@@ -4,7 +4,7 @@ import markdown
 import re
 from markdown.extensions.toc import TocExtension
 from django.utils.text import slugify
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponseRedirect
 
 # Create your views here.
 
@@ -14,6 +14,9 @@ def post(request,pk):
     except Post.DoesNotExist:
         # TODO: msg box
         return JsonResponse({'success': False, 'msg': "can not find it"})
+
+    comment_list = Comment.objects.filter(post=post)
+    comment_num = len(comment_list)
 
     md = markdown.Markdown(
         extensions=[
@@ -28,7 +31,8 @@ def post(request,pk):
     post.body = md.convert(post.body)
     m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
     post.toc = m.group(1) if m is not None else ''
-    return render(request,"blog/post.html",{'post':post})
+
+    return render(request,"blog/post.html",{'post':post,'comment_list':comment_list,'comment_num':comment_num})
 
 
 def classify(request,type):
@@ -55,3 +59,15 @@ def index(request):
 def archive(request,year,month):
     post_list = Post.objects.filter(created_time__year=year,created_time__month=month,).order_by('-created_time')
     return render(request,'blog/index.html',{'post_list':post_list})
+
+def make_comment(request,post_pk):
+    username = request.POST.get('name')
+    content = request.POST.get('comment')
+    post = Post.objects.get(id=post_pk)
+    c = Comment(
+        username = username,
+        content = content,
+        post = post
+    )
+    c.save()
+    return HttpResponseRedirect('/post/{}'.format(post_pk))

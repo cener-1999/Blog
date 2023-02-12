@@ -36,5 +36,8 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse("blog:post",kwargs={"pk":self.pk})
 
-
-
+class Comment(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE)
+    username = models.CharField(max_length=20)
+    content = models.TextField()
+    created_time = models.DateTimeField(default=timezone.now)
