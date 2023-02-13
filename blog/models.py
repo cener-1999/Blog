@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
+import re
 
 
 class Tag(models.Model):
@@ -28,9 +29,9 @@ class Post(models.Model):
 
     def save(self,*args,**kwargs):
         self.modified_time = timezone.now()
-        if self.excerpt == '':
-            self.excerpt = self.body[:54]
 
+        if self.excerpt == '':
+            self.excerpt = re.sub('([^\u4e00-\u9fa5\u0030-\u0039\s])','',self.body[:54])
         super().save(*args,**kwargs)
 
     def get_absolute_url(self):
