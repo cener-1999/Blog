@@ -27,7 +27,11 @@ def post(request,pk):
             TocExtension(slugify=slugify),
         ]
     )
-    post.body = post.body.replace('\r\n\r\n', '<p><br></p> \n')
+    # TODO: make \n bette
+    print(repr(post.body))
+    post.body = post.body.replace('\r\n\r\n', '\r\n\r\n<br>\r\n\r\n')
+    print(repr(post.body))
+
     post.body = md.convert(post.body)
     m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
     post.toc = m.group(1) if m is not None else ''
