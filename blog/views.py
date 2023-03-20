@@ -5,8 +5,10 @@ import re
 from markdown.extensions.toc import TocExtension
 from django.utils.text import slugify
 from django.http import JsonResponse,HttpResponseRedirect
+from django.shortcuts import render
+from django.http import HttpResponse
+import openai
 
-# Create your views here.
 
 def post(request,pk):
     try:
@@ -28,9 +30,9 @@ def post(request,pk):
         ]
     )
     # TODO: make \n bette
-    print(repr(post.body))
-    post.body = post.body.replace('\r\n\r\n', '\r\n\r\n<br>\r\n\r\n')
-    print(repr(post.body))
+    # print(repr(post.body))
+    # post.body = post.body.replace('\r\n\r\n', '\r\n\r\n<br>\r\n\r\n')
+    # print(repr(post.body))
 
     post.body = md.convert(post.body)
     m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
@@ -75,3 +77,22 @@ def make_comment(request,post_pk):
     )
     c.save()
     return HttpResponseRedirect('/post/{}'.format(post_pk))
+
+
+
+def get_gpt(request):
+    openai.api_key = "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"
+    if request.method == 'POST':
+        user_input = request.POST['user_input']
+        response = openai.Completion.create(
+          engine="davinci",
+          prompt=user_input,
+          max_tokens=1024,
+          n=1,
+          stop=None,
+          temperature=0.5,
+        )
+        output = response.choices[0].text.strip()
+        return render(request, 'gpt.html', {'user_input': user_input, 'output': output})
+    else:
+        return render(request, 'gpt.html')

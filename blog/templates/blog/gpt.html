@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GPT-4 Demo</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/gpt.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h1>GPT-4 Demo</h1>
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="user_input" placeholder="Enter your text here...">
+      <input type="submit" value="Submit">
+    </form>
+    {% if user_input %}
+      <h2>User Input:</h2>
+      <p>{{ user_input }}</p>
+      <h2>Output:</h2>
+      <p>{{ output }}</p>
+    {% endif %}
+  </div>
+</body>
+</html>

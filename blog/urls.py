@@ -10,5 +10,7 @@ urlpatterns = [
     path('tag/<str:tag>', views.tags, name='tag'),
     path('author/<str:name>', views.author, name='author'),
     path('archives/<int:year>/<int:month>', views.archive, name='archives'),
-    path('make_comment/<int:post_pk>',views.make_comment,name='make_comment')
+    path('make_comment/<int:post_pk>',views.make_comment,name='make_comment'),
+    path('chatgpt', views.get_gpt, name='get_gpt')
+
 ]
